@@ -16,7 +16,9 @@ app.get("/", (req, res) => {
     res.send("hello")
 })
 app.use(cors({
-    origin: ['http://localhost:3000','http://localhost:3001' ], // Adjust this to match your frontend's origin
+    origin: ['http://localhost:3000',
+    'http://localhost:3001',
+     'http://127.0.0.1:5173', 'https://booking-app-bymoses.netlify.app' ], // Adjust this to match your frontend's origin
     credentials: true, // Allow cookies and credentials
 }));
 
