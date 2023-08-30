@@ -19,10 +19,10 @@ export const register = async (req, res, next) => {
 }
 export const login = async (req, res, next) => {
     try {
-        const user = await User.findOne({ username: req.body.username })
+        const user = await User.findOne({ email: req.body.email })
         if (!user) return next(createError(404, "user not found"))
         const checkPassword = await bcrypt.compare(req.body.password, user.password)
-        if (!checkPassword) return next(createError(400, "wrong password or username"))
+        if (!checkPassword) return next(createError(400, "wrong password or email"))
         const token = Jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.JWT)
         const { password, isAdmin, ...others } = user._doc
         res.cookie("access_token", token,{
