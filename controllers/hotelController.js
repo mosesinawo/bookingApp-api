@@ -62,7 +62,7 @@ export const getHotels = async (req, res, next) => {
     try {
         const hotels = await Hotel.find({
             ...caseInsensitiveOthers,
-            cheapestPrice: { $gte: min | 1, $lte: max || 999 },
+            cheapestPrice: { $gte: min | 1, $lte: max || 999999999 },
         }).limit(10);
         res.status(200).json(hotels);
     } catch (err) {
@@ -71,6 +71,7 @@ export const getHotels = async (req, res, next) => {
 };
 export const countByCity = async (req, res, next) => {
     const cities = req.query.cities.split(",")
+    console.log(cities)
     try {
         const list = await Promise.all(cities.map(city => {
             return Hotel.countDocuments({ city: city })
